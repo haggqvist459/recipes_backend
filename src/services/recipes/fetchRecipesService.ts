@@ -1,0 +1,12 @@
+import { mapRecipesDbToUI } from './utils'
+import { fetchRecipesWithRelationsFromDB } from '../../db'
+import { RecipeType, LanguageType } from '../../types'
+
+export const fetchRecipesService = async (language: LanguageType): Promise<RecipeType[]> => {
+  try {
+    const dbData = await fetchRecipesWithRelationsFromDB(language)
+    return mapRecipesDbToUI(dbData)
+  } catch (error) {
+     throw error
+  }
+}

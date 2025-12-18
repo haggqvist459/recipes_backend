@@ -1,0 +1,26 @@
+import { FilterOptionType, RecipeType, SortingFilterKey, LanguageType } from "../../types";
+import { selectFilteredRecipes } from "../../db/recipes";
+import { mapRecipesDbToUI } from './utils'
+
+export const fetchFilteredRecipesService = async ({
+  typeFilters,
+  cuisineFilters,
+  sortingFilter,
+  language
+}: {
+  typeFilters?: FilterOptionType[]
+  cuisineFilters?: FilterOptionType[]
+  sortingFilter: SortingFilterKey
+  language: LanguageType
+}): Promise<RecipeType[]> => {
+
+  const typeIds = typeFilters?.map((type) => type.id);
+  const cuisineIds = cuisineFilters?.map((cuisine) => cuisine.id);
+
+  try {
+    const dbData = await selectFilteredRecipes({ typeIds, cuisineIds, sortingFilter, language });
+    return mapRecipesDbToUI(dbData)
+  } catch (error) {
+    throw error
+  }
+}
