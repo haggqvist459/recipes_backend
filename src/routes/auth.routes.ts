@@ -3,7 +3,7 @@ import { signIn, signOut } from '../services/';
 
 const router = express.Router();
 
-router.post('/sessions', async (req, res, next) => {
+router.post('/sessions/signin', async (req, res, next) => {
   try {
     const { email, password } = req.body;
     
@@ -16,7 +16,7 @@ router.post('/sessions', async (req, res, next) => {
 });
 
 
-router.delete('/sessions', async (_req, res, next) => {
+router.delete('/sessions/signout', async (_req, res, next) => {
   try {
     await signOut()
     res.status(200).json({ success: true, message: 'Signed out successfully' })
