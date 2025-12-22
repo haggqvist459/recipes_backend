@@ -1,9 +1,27 @@
 import express from 'express';
+import cors from 'cors';
 import { authRoutes } from './routes';
 import { errorHandler } from './middleware'
+import { ALLOWED_ORIGINS } from './constants';
 
 const app = express();
 const PORT = 3001;
+
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true)
+    } else 
+    {
+      callback(new Error("Not Allowed by CORS."))
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
 app.use(express.json());
 

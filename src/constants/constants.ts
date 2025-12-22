@@ -76,3 +76,8 @@ export const LANGUAGES = [
   { code: 'sv', label: 'Svenska' },
   { code: 'en', label: 'English' }
 ] as const;
+
+export const ALLOWED_ORIGINS = [
+  'http://localhost:5175',
+  'http://192.168.1.27:5175'
+]

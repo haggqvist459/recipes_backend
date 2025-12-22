@@ -19,6 +19,7 @@ router.post('/sessions/signin', async (req, res, next) => {
 router.delete('/sessions/signout', async (_req, res, next) => {
   try {
     await signOut()
+    console.log("/sessions/signout success")
     res.status(200).json({ success: true, message: 'Signed out successfully' })
   } catch (error) { 
     next(error)
